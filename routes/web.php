@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/{path?}', 'welcome')
     ->where('path', '.*');
+/*Route::get('/connection', function(){
+    try{ 
+        DB::connection()->getPdo();
+        return 'connected successfully';
+    }
+    catch (\Exception $ex){
+        dd($ex->getMessage());
+    }
+});*/
 
