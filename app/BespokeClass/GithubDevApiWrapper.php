@@ -112,7 +112,21 @@ class GithubDevApiWrapper
      */
     public function checkResponseIsValid($response)
     {
-        return !((json_decode($response)->message) && (json_decode($response)->message == 'Not Found'));
+        return !(isset(json_decode($response)->message) && (json_decode($response)->message == 'Not Found'));
+    }
+
+    /**
+     * filter response to no forked repo
+     */
+    public function getApiWrapperRequestResponseFiltered($response)
+    {
+        if($this->checkResponseIsValid($response))
+        {
+            return array_filter(json_decode($response), function($repo){
+                return $repo->fork == false;
+            });
+        }
+        return [];
     }
 }
 ?>
