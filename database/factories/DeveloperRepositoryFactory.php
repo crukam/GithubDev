@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LanguageFactory extends Factory
+class DeveloperRepositoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class LanguageFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> $this->faker->name
+            'name' => $this->faker->name
         ];
     }
 }

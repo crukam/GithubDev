@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DeveloperFactory extends Factory
@@ -14,7 +15,8 @@ class DeveloperFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'userName' => $this->faker->userName,
+            'avatarUrl'=> $this->faker->Url
         ];
     }
 }

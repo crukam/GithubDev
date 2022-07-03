@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevelopersTable extends Migration
+class CreateDeveloperRepositoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateDevelopersTable extends Migration
      */
     public function up()
     {
-        Schema::create('developers', function (Blueprint $table) {
-           
+        Schema::create('developer_repositories', function (Blueprint $table) {
+            
             $table->increments('id');
-            $table->string('userName',100);
-            $table->string('avatarUrl');
+            $table->integer('developer_id')->unsigned();
+            $table->string('name',150);
             $table->timestamps();
+            $table->foreign('developer_id')->references('id')->on('developers')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateDevelopersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('developers');
+        Schema::dropIfExists('developer_repositories');
     }
 }

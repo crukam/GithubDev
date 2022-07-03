@@ -103,12 +103,12 @@ class BespokeClassGithubDevApiWrapper extends TestCase
   /**
    * Test call has all the repos
    */
-  public function testCurlResponsehasAllRepos()
+ /* public function testCurlResponsehasAllRepos()
   {
     $this->initGithubDevApiWrapper();
     $expectedJson = file_get_contents(__DIR__.'/fixtures/crukamRepos.json');
     $this->assertSame($expectedJson,$this->githubDevApiWrapper->getApiWrapperRequestResponse());
-  }
+  }*/
   /**
    * Test wrapper return error with no existing username
    */
@@ -123,5 +123,18 @@ class BespokeClassGithubDevApiWrapper extends TestCase
     
     $this->assertFalse($this->githubDevApiWrapper->checkResponseIsValid($response));
   
+  }
+  /**
+   * Test the response is filtered
+   */
+  public function testResponseFromApiIsfiltered()
+  {
+    $this->initGithubDevApiWrapper();
+
+    $response = $this->githubDevApiWrapper->getApiWrapperRequestResponse();
+
+    $noForkedRepo = $this->githubDevApiWrapper->getApiWrapperRequestResponseFiltered($response);
+
+    $this->assertGreaterThanOrEqual(COUNT($noForkedRepo),COUNT(json_decode($response)));
   }
 }
