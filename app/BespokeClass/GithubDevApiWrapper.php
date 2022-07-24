@@ -29,7 +29,7 @@ class GithubDevApiWrapper
     /**
      * Set Api wrapper base url
      */
-    public function setBaseUrl($url)
+    public function setBaseUrl($url='https://api.github.com/users/')
     {
         $this->baseUrl = $url;
     }
@@ -127,6 +127,16 @@ class GithubDevApiWrapper
             });
         }
         return [];
+    }
+    /**
+     * Get developer data from gitHub API request
+     * 
+     * @param string $userName the developer github username
+     * @return array $devRequestResponseData
+     */
+    public function devRequestResponseData($userName)
+    {
+
     }
 }
 ?>
