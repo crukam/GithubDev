@@ -9,6 +9,7 @@ class Language extends Model
 {
     use HasFactory;
     
+    protected $fillable = ['name','numberOfLignesOfCode'];
     public function developerRepositories()
     {
         return $this->belongsToMany(DeveloperReposirtory::class);
