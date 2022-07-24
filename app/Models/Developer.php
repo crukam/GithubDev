@@ -10,6 +10,8 @@ class Developer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['userName','avatarUrl']; 
+
     public function repositories()
     {
         return $this->hasMany(DeveloperRepository::class);

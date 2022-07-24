@@ -10,6 +10,8 @@ class DeveloperRepository extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function developer()
     {
         return $this->belongsTo(Developer::class);
