@@ -122,8 +122,8 @@ class GitHubDevApiWrapperController extends Controller
                     );
                     
                     $language->save();
-                    $repository->languages()->attach($language, ['numberOfLignesOfCode'=>$value]);
-                    
+                    if(!$repository->languages->contains($language))
+                        $repository->languages()->attach($language, ['numberOfLignesOfCode'=>$value]);
                     
                 }
             }
