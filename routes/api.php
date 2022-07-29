@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/developer', DeveloperController::class)->only(['show','store']);
+Route::apiResource('/developer', DeveloperController::class)->only(['index','show','store']);
 
 Route::ApiResource('/devApi', GitHubDevApiWrapperController::class);
 

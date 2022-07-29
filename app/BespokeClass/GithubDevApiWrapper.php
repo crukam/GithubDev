@@ -112,7 +112,7 @@ class GithubDevApiWrapper
      */
     public function checkResponseIsValid($response)
     {
-        return !(isset(json_decode($response)->message) && (json_decode($response)->message == 'Not Found'));
+        return !(isset(json_decode($response)->message) );
     }
 
     /**

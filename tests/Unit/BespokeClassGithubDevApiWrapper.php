@@ -137,11 +137,4 @@ class BespokeClassGithubDevApiWrapper extends TestCase
 
     $this->assertGreaterThanOrEqual(COUNT($noForkedRepo),COUNT(json_decode($response)));
   }
-  /**
-   * Test devRequestResponseData building
-   */
-  public function testDevRequestResponseData()
-  {
-
-  }
 }

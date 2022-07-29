@@ -11,26 +11,17 @@ use App\Http\Resources\DeveloperResource;
 
 class GitHubDevApiWrapperController extends Controller
 {
-    /**
-     * Function helper to get developer json data
-     */
-    private function getDevData(Request $request)
-    {
-        $GithubDevApiWrapper = new GithubDevApiWrapper();
-        $GithubDevApiWrapper->setBaseUrl('https://api.github.com/users/');
-        $GithubDevApiWrapper->setCurlCallSettings($request->query()['userName'],'GET');
-        return $GithubDevApiWrapper->getApiWrapperRequestResponse();
-    }
+    
     /**
      * function helper to get developer repos data
      */
     private function getDevRepoData(Request $request)
     {
-        /*$GithubDevApiWrapper = new GithubDevApiWrapper();
+        $GithubDevApiWrapper = new GithubDevApiWrapper();
         $GithubDevApiWrapper->setBaseUrl('https://api.github.com/users/');
         $GithubDevApiWrapper->setCurlCallSettings($request->query()['userName'].'/repos','GET');
-        return $GithubDevApiWrapper->getApiWrapperRequestResponse();*/
-        return file_get_contents('/home/claude/githubDev/tests/Unit/fixtures/crukamRepos.json');
+        return $GithubDevApiWrapper->getApiWrapperRequestResponse();
+       // return file_get_contents('/home/claude/githubDev/tests/Unit/fixtures/errorResponse.json');
         
     }
     /**
@@ -88,6 +79,19 @@ class GitHubDevApiWrapperController extends Controller
     {
         //$devData = $this->getDevData($request);
         $devRepos = $this->getDevRepoData($request);
+        //check whether we have a valid response from Github API
+
+        if(isset(json_decode($devRepos)->message))
+        {
+            if(json_decode($devRepos)->message == "Not Found")
+            {
+                return json_encode(['code'=>400,'message'=>'The developer '.$request->query()['userName'].' can not be found.']);
+            }
+            else
+            {
+                return json_encode(['code'=>401,'message'=>'Unauthorised access']);
+            }
+        }
         $devData = $this->getDevAvatar($devRepos);
         $reposData = $this->getDevRessource($devRepos);
         //save developer
@@ -141,6 +145,8 @@ class GitHubDevApiWrapperController extends Controller
      */
     public function show( Request $request)
     {
-       
+        
+        $developer  = Developer::where('userName', $request->query()['userName'])->get();
+        return $developer->isEmpty() ? $this->index($request) : $developer;
     }
 }
